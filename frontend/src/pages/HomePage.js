@@ -16,12 +16,19 @@ function HomePage() {
         alignItems: 'center',      // vertical centering
         height: '50vh'            // full viewport height
       }}>
-        <nav>
+
+        {currentScreen === 'home' && ( // Button for navigation to camera
+          <nav>
             <button onClick={() => navigateTo('cam')}>Upload Document</button>
-        </nav> 
+          </nav>
+        )}
 
-        {currentScreen === 'cam' && <CameraUpload />}
-
+        {currentScreen === 'cam' && ( // For navigating back home
+          <div>
+            <button onClick={() => navigateTo('home')}>Back to Home</button>
+            <CameraUpload />
+          </div>
+        )}
       </div>
     );
 }
