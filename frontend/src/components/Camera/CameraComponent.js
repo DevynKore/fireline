@@ -42,7 +42,7 @@ const CameraComponent = ({ onPhotoCapture, onError }) => {
     };
 
     const resetCamera = () => {
-        setSavedPhoto(null);
+        setImage(null);
 
         if(camera.current && camera.current.reset) {
             camera.current.reset();
@@ -74,6 +74,7 @@ const CameraComponent = ({ onPhotoCapture, onError }) => {
                     {isLoading ? 'Taking Photo...' : 'Capture'}
                 </button>
                 {renderImage()}
+                {resetCamera()}
             </div>
         </div>
     )
