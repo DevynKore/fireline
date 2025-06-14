@@ -24,8 +24,14 @@ function HomePage() {
         )}
 
         {currentScreen === 'cam' && ( // For navigating back home
-          <div>
-            <button onClick={() => navigateTo('home')}>Back to Home</button>
+          <div style={{ 
+            display: 'flex',
+            flexDirection: 'column',  // Stack items vertically
+            alignItems: 'flex-start'  // Align items to the left
+          }}>
+            <button onClick={() => navigateTo('home')}>
+                Back to Home
+                </button>
             <CameraUpload />
           </div>
         )}

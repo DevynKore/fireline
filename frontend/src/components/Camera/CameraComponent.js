@@ -41,11 +41,11 @@ const CameraComponent = ({ onPhotoCapture, onError }) => {
 
     // <Camera ref = {camera} assigns the component 'Camera' to the useRef hook
     return (
-        <div style={{ width: '100%', height: '400px', position: 'relative' }}> 
+        <div> 
             <Camera ref = {camera} /> 
             <div style={{ // Style for button that takes photo
                 position: 'absolute',
-                bottom: '20px',
+                bottom: '10px',
                 left: '50%',
                 transform: 'translateX(-50%)'
             }}>
