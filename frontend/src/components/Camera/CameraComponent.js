@@ -11,8 +11,10 @@ const CameraComponent = ({ onPhotoCapture, onError }) => {
     const takePhoto = async () => {
         try {
             setIsLoading(true);
+            // Where the photo is first captured
             const photo = camera.current.takePhoto();
             setImage(photo);
+            console.log(photo);
 
             if (onPhotoCapture){
                 onPhotoCapture(photo);
@@ -30,7 +32,7 @@ const CameraComponent = ({ onPhotoCapture, onError }) => {
     const renderImage = () => {
         if (image) {
           return (
-            <div style={{ marginTop: '20px' }}>
+            <div style={{ marginTop: '10px' }}>
               <img src={image} alt="Captured" />
             </div>
           );
@@ -39,10 +41,18 @@ const CameraComponent = ({ onPhotoCapture, onError }) => {
         }
     };
 
+    const resetCamera = () => {
+        setSavedPhoto(null);
+
+        if(camera.current && camera.current.reset) {
+            camera.current.reset();
+        }
+    }
+
     // <Camera ref = {camera} assigns the component 'Camera' to the useRef hook
     return (
         <div> 
-            <Camera ref = {camera} /> 
+            <Camera ref = {camera}  facingMode={'environment'}/> 
             <div style={{ // Style for button that takes photo
                 position: 'absolute',
                 bottom: '10px',
