@@ -1,10 +1,10 @@
 // import { useState } from 'react';
-import CameraCapture from "../components/Camera/CameraComponent";
+import CameraComponent from "../components/Camera/CameraComponent";
 
 
 function CameraUpload() {
     return (
-        CameraCapture
+        <CameraComponent />
     );
 }
 
