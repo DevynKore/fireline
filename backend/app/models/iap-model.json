@@ -1,0 +1,258 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://fireline360.com/schemas/iap-model.json",
+  "title": "Wildfire Incident Action Plan",
+  "type": "object",
+  "required": ["incident_basic", "fire_status", "weather", "objectives"],
+  "properties": {
+    "incident_basic": {
+      "type": "object",
+      "required": ["incident_id", "incident_name", "operational_period", "location"],
+      "properties": {
+        "incident_id": {
+          "type": "string",
+          "description": "Unique identifier for the incident"
+        },
+        "incident_name": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Official incident name"
+        },
+        "operational_period": {
+          "type": "object",
+          "required": ["period_number", "from_datetime", "to_datetime"],
+          "properties": {
+            "period_number": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "from_datetime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "to_datetime": {
+              "type": "string", 
+              "format": "date-time"
+            }
+          }
+        },
+        "location": {
+          "type": "object",
+          "required": ["latitude", "longitude"],
+          "properties": {
+            "latitude": {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "longitude": {
+              "type": "number",
+              "minimum": -180,
+              "maximum": 180
+            },
+            "description": {
+              "type": "string",
+              "maxLength": 255
+            }
+          }
+        },
+        "incident_commander": {
+          "type": "string",
+          "maxLength": 100
+        }
+      }
+    },
+    "fire_status": {
+      "type": "object",
+      "required": ["acres_burned", "percent_contained"],
+      "properties": {
+        "acres_burned": {
+          "type": "number",
+          "minimum": 0
+        },
+        "percent_contained": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "growth_last_24h": {
+          "type": "number",
+          "minimum": 0
+        },
+        "containment_eta": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fire_behavior": {
+          "type": "string",
+          "enum": ["minimal", "moderate", "active", "extreme"]
+        },
+        "fuel_types": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "structures_threatened": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "structures_destroyed": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "weather": {
+      "type": "object",
+      "properties": {
+        "temperature": {
+          "type": "number",
+          "description": "Temperature in Fahrenheit"
+        },
+        "relative_humidity": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "wind_speed": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Wind speed in MPH"
+        },
+        "wind_direction": {
+          "type": "string",
+          "pattern": "^(N|NE|E|SE|S|SW|W|NW)$"
+        },
+        "forecast_summary": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "red_flag_warning": {
+          "type": "boolean"
+        }
+      }
+    },
+    "objectives": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["priority", "objective"],
+        "properties": {
+          "priority": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "objective": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "strategy": {
+            "type": "string",
+            "maxLength": 500
+          }
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "properties": {
+        "total_personnel": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "engines": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "crews": {
+          "type": "integer", 
+          "minimum": 0
+        },
+        "helicopters": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "air_tankers": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "assignments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["division_name", "supervisor", "assignment"],
+        "properties": {
+          "division_name": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "supervisor": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "assignment": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "resources_assigned": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["resource_id", "resource_type"],
+              "properties": {
+                "resource_id": {
+                  "type": "string",
+                  "maxLength": 50
+                },
+                "resource_type": {
+                  "type": "string",
+                  "enum": ["engine", "crew", "helicopter", "dozer", "water_tender"]
+                },
+                "leader": {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "personnel_count": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "communications": {
+      "type": "object",
+      "properties": {
+        "command_frequency": {
+          "type": "string",
+          "pattern": "^[0-9]{3}\\.[0-9]{3}$"
+        },
+        "tactical_frequency": {
+          "type": "string",
+          "pattern": "^[0-9]{3}\\.[0-9]{3}$"
+        },
+        "air_frequency": {
+          "type": "string",
+          "pattern": "^[0-9]{3}\\.[0-9]{3}$"
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "properties": {
+        "primary_concerns": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "safety_officer": {
+          "type": "string",
+          "maxLength": 100
+        }
+      }
+    }
+  }
+}
