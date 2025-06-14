@@ -1,6 +1,12 @@
+import { useState } from 'react';
+import CameraUpload from './CameraUpload'
+
 function HomePage() {
-    const handleClick = () => {
-      alert('Document Upload');
+
+    const [currentScreen, setCurrentScreen] = useState('home');
+
+    const navigateTo = (screenName) => {
+        setCurrentScreen(screenName);
     };
   
     return (
@@ -10,9 +16,12 @@ function HomePage() {
         alignItems: 'center',      // vertical centering
         height: '50vh'            // full viewport height
       }}>
-      <button onClick={handleClick}>
-        Upload Document
-        </button>
+        <nav>
+            <button onClick={() => navigateTo('cam')}>Upload Document</button>
+        </nav> 
+
+        {currentScreen === 'cam' && <CameraUpload />}
+
       </div>
     );
 }
