@@ -59,7 +59,8 @@ const CameraComponent = ({ onPhotoCapture, onError }) => {
                 left: '50%',
                 transform: 'translateX(-50%)'
             }}>
-                <button // Button responsible for taking photo
+                {!image ? (
+                    <button // Button responsible for taking photo
                     onClick={ takePhoto }
                     disabled={ isLoading }
                     style={{
@@ -70,11 +71,27 @@ const CameraComponent = ({ onPhotoCapture, onError }) => {
                         color: 'white',
                         fontSize: '16px'
                     }}
-                >
-                    {isLoading ? 'Taking Photo...' : 'Capture'}
-                </button>
-                {renderImage()}
-                {resetCamera()}
+                    >
+                        {isLoading ? 'Taking Photo...' : 'Capture'}
+                    </button>
+                ) : (
+                    <div>
+                        {renderImage()}
+                        <button // Button responsible for taking photo
+                            onClick={ resetCamera }
+                            style={{
+                                padding: '15px 30px',
+                                borderRadius: '50px',
+                                border: 'none',
+                                backgroundColor: '#007bff',
+                                color: 'white',
+                                fontSize: '16px',
+                            }}
+                        >
+                            Take Another Photo
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     )
