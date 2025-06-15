@@ -8,6 +8,9 @@ const CameraComponent = ({ onPhotoCapture, onError }) => {
     const [image, setImage] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    /**
+     * Taking photo 
+     */
     const takePhoto = async () => {
         try {
             setIsLoading(true);
@@ -29,6 +32,10 @@ const CameraComponent = ({ onPhotoCapture, onError }) => {
         }
     };
 
+    /**
+     * Renders the photo taken
+     * @returns image presnetation or nothing
+     */
     const renderImage = () => {
         if (image) {
           return (
