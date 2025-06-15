@@ -48,7 +48,6 @@ const CameraComponent = ({ onPhotoCapture, onError }) => {
             camera.current.reset();
         }
     }
-
     // <Camera ref = {camera} assigns the component 'Camera' to the useRef hook
     return (
         <div> 
@@ -58,41 +57,23 @@ const CameraComponent = ({ onPhotoCapture, onError }) => {
                 bottom: '10px',
                 left: '50%',
                 transform: 'translateX(-50%)'
-            }}>
-                {!image ? (
-                    <button // Button responsible for taking photo
-                    onClick={ takePhoto }
-                    disabled={ isLoading }
-                    style={{
-                        padding: '15px 30px',
-                        borderRadius: '50px',
-                        border: 'none',
-                        backgroundColor: '#007bff',
-                        color: 'white',
-                        fontSize: '16px'
-                    }}
-                    >
-                        {isLoading ? 'Taking Photo...' : 'Capture'}
-                    </button>
-                ) : (
-                    <div>
-                        {renderImage()}
-                        <button // Button responsible for taking photo
-                            onClick={ resetCamera }
-                            style={{
-                                padding: '15px 30px',
-                                borderRadius: '50px',
-                                border: 'none',
-                                backgroundColor: '#007bff',
-                                color: 'white',
-                                fontSize: '16px',
-                            }}
-                        >
-                            Take Another Photo
-                        </button>
-                    </div>
-                )}
+                }}>
+                <button // Button responsible for taking photo
+                onClick={ takePhoto }
+                disabled={ isLoading }
+                style={{
+                    padding: '15px 30px',
+                    borderRadius: '50px',
+                    border: 'none',
+                    backgroundColor: '#007bff',
+                    color: 'white',
+                    fontSize: '16px'
+                }}
+                >
+                    {isLoading ? 'Taking Photo...' : 'Capture'}
+                </button>
             </div>
+            {renderImage()}
         </div>
     )
 };
